@@ -1,0 +1,107 @@
+                                How React used to be 
+
+=> Functional components - Can produce JSX to show content to the user.
+=> Class components 
+    - Can produce JSX to show content to the user.
+    - Can use the Lifecycle Method system to run code at specific points in time.
+    - Can use the 'state' system to update content on the screen.
+
+
+                    Functional components VS Class components
+
+=> Functional components are much more restricted in nature. They do not have access to that life cycle method system or the state system.
+
+                                    How React is NOW
+Class components 
+    => Can produce JSX to show content to the user.
+    => Can use the Lifecycle Method system to run code at specific points in time.
+    => Can use the 'state' system to update content on the screen.
+
+Hooks system Function components
+    => Can produce JSX to show content to the user.
+    => Can use Hooks to run code at specific points in time.
+    => Can use Hooks to access the 'state' system and update content on the screen.
+
+                                Functional components VS Class components NOW
+=> Have the same capabilities
+=> Which one should we use?
+    => Companies with established projects, in other words, if there 's some company that has been working the same React up for a number of years, chance are that they are using Class-based components. Because that used to be the way and the only way that we could work with the state system and lifcycle methods and so on.
+    => Companies with newer projects may be using Class-based or Function-based components.
+
+                                Learn Functional components VS Class components
+
+Really HARD --> Learn Hooks --> Learn Redux
+Much Easier --> Learn class components --> Learn Hooks --> Learn Redux
+
+                                Benefits of Class components
+
+=> Easier code organization.
+=> Can use 'state' (another React system) --> easier to handle user input
+=> Understand lifecycle events --> easier to do things when the app first starts
+
+                                    App challenges
+=> Need to get the user physical location.
+=> Need to determine the current month.
+=> Need to change text + styling based on location + month
+
+                                Diagram of this app
+
+App:
+    => Has code to determine location + month
+SeasonDisplay:
+    => Shows different text/icons based on props
+
+                                API
+=> Geolocation API
+    => Search Geolocation MDN
+    => Read Documentation
+
+
+        Timeline of what happens to our application inside the user's browser with Functional component
+        
+=> JS file loaded by browser.
+=> App components get created.
+=> We call Geolocation service. To get the result back, takes some amount of time. While waiting for the result, the app also continue the next step.
+=> App returns JSX, gets rendered to page as HTML.
+=> We get result of Geolocation.
+NOTE: The problem is that, getting the position result takes amount of time , by the time it returns the position, the JSX is already rendered on the page. So the result comes too late. And with Functional component, we dont really have a good way of wating until the success request comes and then taking the position and then sticking it into the JSX. So the solution is going to be a class-based component with 'state' system.
+
+            Timeline of what happens to our application inside the user's browser with Class-based component
+=> JS file loaded by browser.
+=> App components get created.
+=> We call Geolocation service.
+=> App returns JSX, gets rendered to page as HTML.
+=> We get result of Geolocation.
+=> Tell the component to rerender itself with the new information.
+
+                                        Rules of Class Components
+=> Must be a JS class.
+=> Must extend (subclass) React.component
+=> Must define a "render" method that returns some amount of JSX.
+NOTE: In order to use a class-based component with React, React expects that our class-based component has many other methods attached to it. Normally we do not implement these methods by ourselves, but instaed, we follow all these other methods from this other class called React.Component. So the reason that we are extending React.Component right here, is that to allow us to pull a tons of build in Functionality from the class called React.Component into our class.
+
+                                Rules of State
+
+=> Ony usable with class components. ( Technically can be used with functional components using the 'Hooks' system)
+=> You will confuse props with states :(
+=> 'State' is a JS object that contain data relevant to a component.
+=> Updating 'state' on a component causes the component to (almost) instantly rerender.
+=> State must be initialized when a component is created.
+=> State can ONLY be updated using the function 'setState'
+
+                            Timeline of what happens to our application when we use 'state' system
+=> 1. JS file loaded by browser
+=> 2. Instance of App component is created
+=> 3. App components constructor function gets called
+=> 4. State object is created and assigned to the 'this.state' property
+=> 5. We call geolocation service.
+=> 6. React calls the component's render method
+=> 7. App returns JSX, gets rendered to page as HTML.
+=> 8. We get result of geolocation
+=> 9. we update our state object with a call to 'this.setState'
+=> 10. React sees that we updated the state of a component.
+=> 11. React calls our render() a 2nd time
+=> 12 Render() returns some updated JSX on the screen.
+
+NOTE: Step 2: When the Instance of App component is created, the 1st function that is going to be automatically called is constructor(), means it will be called even if u don't define it. We r not required to define the constructor(). We can OPTIONALLY define it if we want to do some initial setup when our component is first created. If we do CHOOSE to define the constructor(), then we have to make sure that we call the SUPER function inside of it. If we don't , we'll get an error.
+NOTE: Step 4: We use this.state or this.setState() coz it the way to call or assign the properties of an instance. Now App component inharit them from React.Component and can access it like its own. But with render(), we define it, not calling or assigning it. And it is the method of App component self. That 's y we dont use 'this' keyword with it.
